@@ -1,0 +1,11 @@
+{% load crispy_forms_tags %}
+
+<div class="field">
+    <label class="label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+    <div class="control">
+        {{ field|add_class:"input" }}
+        {% if field.errors %}
+        <p class="help is-danger">{{ field.errors }}</p>
+        {% endif %}
+    </div>
+</div>

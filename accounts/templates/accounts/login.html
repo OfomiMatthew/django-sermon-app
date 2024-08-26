@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %} Login | Sermon {% endblock title %}
+
+{% block content %}
+<div class="columns is-centered is-vcentered" style="height: 100vh;">
+  <div class="column is-half-tablet is-one-third-desktop">
+    <div class="box">
+      <h2 class="title is-3 has-text-centered">Login</h2>
+
+      <form action="" method="post">
+        {% csrf_token %}
+        
+        <div class="field">
+          <label class="label">Username</label>
+          <div class="control">
+            <input type="text" id="username" name="username" class="input" placeholder="Enter your username" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Password</label>
+          <div class="control">
+            <input type="password" id="password" name="password" class="input" placeholder="Enter your password" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control has-text-centered">
+            <button type="submit" class="button is-primary is-fullwidth">Login</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}

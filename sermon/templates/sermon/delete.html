@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% comment %} {% load crispy_forms_tags %} {% endcomment %}
+{% block content %}
+<div class="card mb-3">
+  <div class="row g-0">
+    <div>
+      <div class="card-body">
+        <h5 class="card-title">Are you sure you want to delete "{{obj}}" ?</h5>
+      
+        <p class="card-text">
+          <form method="POST">
+            {% csrf_token %}
+            {{ form}}
+            <a href="{{request.META.HTTP_REFERER}}" class="button is-light">Go back</a>
+           <input type="submit" value="confirm" class="button is-primary">
+          </form>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

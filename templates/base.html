@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{% block title %} {% endblock title %}</title>
+    <link rel="icon" type="image/x-icon" href="https://th.bing.com/th/id/R.ad1e918a041057367634bbafa870d919?rik=1kA%2b81EcVI%2bu%2bg&riu=http%3a%2f%2fwww.firstfamily.us%2fmt-content%2fuploads%2f2022%2f04%2fsermonshomepageresize.jpg&ehk=jnRMkefOOkl7gyCvZWVhjecvlBvpe285e7gGlcjBNug%3d&risl=&pid=ImgRaw&r=0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
+    >
+    <style>
+      /* Additional styling for the close button */
+      .close-btn {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="{% url 'home' %}">
+          <!-- Your SVG Logo -->
+          <img width="50" height="50" src="https://th.bing.com/th/id/R.ad1e918a041057367634bbafa870d919?rik=1kA%2b81EcVI%2bu%2bg&riu=http%3a%2f%2fwww.firstfamily.us%2fmt-content%2fuploads%2f2022%2f04%2fsermonshomepageresize.jpg&ehk=jnRMkefOOkl7gyCvZWVhjecvlBvpe285e7gGlcjBNug%3d&risl=&pid=ImgRaw&r=0" alt="">
+          
+        </a>
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+          <!-- Navbar Start Content -->
+        </div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              {% if user.is_authenticated %}
+              <a class="button is-secondary"><strong>Hello {{user.username}}</strong></a>
+              <a class="button is-primary" href="{% url 'logout' %}"><strong>Logout</strong></a>
+              <a class="button is-light" href="{% url 'upload-sermon' %}">Upload Sermon</a>
+              {% else %}
+              <a class="button is-light" href="{% url 'login' %}">Login</a>
+              <a class="button is-primary" href="{% url 'register' %}">Register</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Messages Section -->
+    {% if messages %}
+    <div class="messages p-4">
+      {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} bg-green-100 text-green-700 p-4 rounded relative" role="alert">
+        {{ message }}
+        <span class="close-btn absolute top-0 right-0 mt-2 mr-4 text-green-700 hover:text-green-900" onclick="this.parentElement.style.display='none';">&times;</span>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% block content %} {% endblock content %}
+
+    <script>
+      // Navbar burger toggle for mobile responsiveness
+      document.addEventListener('DOMContentLoaded', () => {
+        // Get all "navbar-burger" elements
+        const navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+        // Check if there are any navbar burgers
+        if (navbarBurgers.length > 0) {
+          // Add a click event on each of them
+          navbarBurgers.forEach(el => {
+            el.addEventListener('click', () => {
+              // Get the target from the "data-target" attribute
+              const target = el.dataset.target;
+              const $target = document.getElementById(target);
+
+              // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+              el.classList.toggle('is-active');
+              $target.classList.toggle('is-active');
+            });
+          });
+        }
+      });
+
+      // Auto-hide messages after 5 seconds
+      setTimeout(() => {
+        const messages = document.querySelectorAll('.alert');
+        messages.forEach(message => {
+          message.style.display = 'none';
+        });
+      }, 5000); // Hides after 5 seconds
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Upload | Sermon
+{% endblock title %}
+
+{% block content %}
+<div class="container is-fluid py-6">
+  <div class="box">
+    <h1 class="title is-3 has-text-centered">Upload Sermon</h1>
+    <form action="" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      
+      <div class="field">
+        <label class="label" for="{{ form.title.id_for_label }}">Title</label>
+        <div class="control">
+          <input type="text" id="{{ form.title.id_for_label }}" name="{{ form.title.name }}" class="input" placeholder="Enter the title" value="{{ form.title.value }}">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="{{ form.description.id_for_label }}">Description</label>
+        <div class="control">
+          <textarea id="{{ form.description.id_for_label }}" name="{{ form.description.name }}" class="textarea" placeholder="Enter the description">{{ form.description.value }}</textarea>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="{{ form.file.id_for_label }}">File Upload</label>
+        <div class="control">
+          <input type="file" id="{{ form.file.id_for_label }}" name="{{ form.file.name }}" class="input">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="{{ form.thumbnail.id_for_label }}">Thumbnail</label>
+        <div class="control">
+          <input type="file" id="{{ form.thumbnail.id_for_label }}" name="{{ form.thumbnail.name }}" class="input">
+        </div>
+      </div>
+
+      <div class="field is-grouped is-grouped-centered">
+        <div class="control">
+          <button type="submit" class="button is-primary">Upload</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock content %}

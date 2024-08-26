@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home
+{% endblock title %}
+
+{% block content %}
+<div class="container mt-6">
+  <div class="columns is-centered">
+    <div class="column is-half has-text-centered">
+      <h1 class="title is-3">Welcome to the Sermons</h1>
+    </div>
+  </div>
+
+  <div class="columns is-centered">
+    <div class="column is-half">
+      <form action="" method="GET">
+        <div class="field">
+          <label class="label has-text-centered" for="search-sermon">Search for Sermons</label>
+          <div class="control">
+            <input class="input" type="text" name="searchSermon" id="search-sermon" placeholder="Enter sermon title">
+          </div>
+        </div>
+        <div class="field has-text-centered">
+          <div class="control">
+            <button class="button is-primary" type="submit">Search</button>
+          </div>
+        </div>
+      </form>
+
+      {% if searchSermon %}
+      <p class="mt-4 has-text-weight-semibold">Searching for: {{ searchSermon }}</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="columns is-multiline mt-6">
+    {% for sermon in sermons %}
+    <div class="column is-one-third">
+      <a href="{% url 'sermon-detail' sermon.slug %}" class="box has-background-light">
+        <div class="card">
+          <div class="card-image">
+            <figure class="image is-4by3">
+              <img src="{{ sermon.thumbnail.url }}" alt="{{ sermon.title }}">
+            </figure>
+          </div>
+          <div class="card-content">
+            <div class="media">
+              <div class="media-content">
+                <p class="title is-5">{{ sermon.title }}</p>
+                <p class="subtitle is-6 mt-2">Posted By: <strong>{{ sermon.author }}</strong></p>
+              </div>
+            </div>
+            <div class="content">
+              {{ sermon.description|truncatewords:20 }}
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="columns is-centered mt-6">
+    <div class="column is-narrow">
+      {% include "sermon/paginator.html" with page=sermons %}
+    </div>
+  </div>
+</div>
+{% endblock content %}

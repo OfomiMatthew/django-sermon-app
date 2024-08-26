@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}
+Sermon Detail | {{sermon.title}}
+{% endblock title %}
+
+{% block content %}
+<div class="container mt-6">
+  <div class="columns is-centered">
+    <div class="column is-8">
+      <!-- Sermon Details -->
+      <div class="box">
+        <div class="has-text-centered">
+          <figure class="image is-3by2">
+            <img src="{{sermon.thumbnail.url}}" alt="{{sermon.title}}" class="is-rounded">
+          </figure>
+          <h2 class="title is-3 mt-4">{{sermon.title}}</h2>
+          <p class="subtitle is-5">By <span class="has-text-success">{{sermon.author}}</span></p>
+        </div>
+
+        <!-- Center the audio player -->
+        <div class="has-text-centered mt-4">
+          <audio controls class="is-inline-block">
+            <source src="{{sermon.file.url}}" type="audio/mpeg">
+            Audio content is not supported by your browser.
+          </audio>
+        </div>
+
+        <p class="content mt-4">{{sermon.description}}</p>
+        
+        {% if user.is_authenticated %}
+        <a href="{% url 'create-review' sermon.id %}" class="button is-primary mt-4">Add Review</a>
+        {% endif %}
+      </div>
+
+      <!-- Reviews -->
+      <div class="box mt-4">
+        <h4 class="title is-4">Reviews</h4>
+        <ul>
+          {% for review in reviews %}
+          <li class="box mb-4">
+            <div class="content">
+              <h5 class="title is-5">Comment by {{review.user.username}}</h5>
+              <p class="subtitle is-6">{{ review.date|date:"F j, Y" }}</p>
+              <p>{{review.text}}</p>
+
+              {% if user.is_authenticated and user == review.user %}
+              <div class="buttons">
+                <a href="{% url 'update-review' review.id %}" class="button is-primary">Update</a>
+                <a href="{% url 'delete-review' review.id %}" class="button is-danger">Delete</a>
+              </div>
+              {% endif %}
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
