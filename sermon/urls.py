@@ -1,6 +1,6 @@
 from django.urls import path 
 from . import views
-from django.conf.urls import handler404
+# from django.conf.urls import handler404
 
 urlpatterns = [
     path('',views.home,name='home'),
@@ -12,4 +12,4 @@ urlpatterns = [
     path('<int:id>/delete/',views.delete_review,name='delete-review'),
 ]
 
-handler404 = 'sermon.urls.custom_page_not_found_view'
+# handler404 = 'sermon.urls.custom_page_not_found_view'

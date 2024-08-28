@@ -14,9 +14,7 @@ class Sermon(models.Model):
   file = models.FileField(verbose_name='Sermon File',upload_to='sermon_uploads',validators=[FileExtensionValidator(allowed_extensions=ALLOWED_EXTENSIONS)])
   thumbnail = models.ImageField(verbose_name='Sermon Thumbnail',upload_to='sermon_thumbnails')
   
-  # def save(self):
-  #   self.slug = slugify(self.title)
-  #   super(Sermon,self).save()
+ 
   def save(self, *args, **kwargs):
       if not self.slug:
           slug_candidate = slugify(self.title)

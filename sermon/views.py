@@ -33,6 +33,8 @@ def upload_sermon(request):
       sermon.author = request.user
       sermon.save()
       return redirect('home') 
+    else:
+      print(form.errors)
   else:
     form = SermonForm()
     
@@ -96,5 +98,3 @@ def delete_review(request,id):
     return redirect('sermon-detail',slug=sermon_slug)
   return render(request,'sermon/delete.html',{'obj':review})
     
-def custom_page_not_found_view(request, exception):
-    return render(request, '404.html', status=404)
